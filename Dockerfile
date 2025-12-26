@@ -38,7 +38,7 @@ ENV STATIC_URL ${STATIC_URL:-/dashboard/}
 ENV SKIP_SOURCEMAPS ${SKIP_SOURCEMAPS:-true}
 ENV LOCALE_CODE ${LOCALE_CODE:-EN}
 RUN pnpm run generate:main
-RUN pnpm exec cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build
+RUN pnpm exec cross-env NODE_OPTIONS=--max-old-space-size=8192 API_URL=$API_URL vite build
 
 FROM nginx:stable-alpine as runner
 WORKDIR /app
