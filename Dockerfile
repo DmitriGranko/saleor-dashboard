@@ -20,7 +20,7 @@ COPY .featureFlags/ .featureFlags/
 
 COPY src/ src/
 
-ARG VITE_API_URL
+ARG API_URL
 ARG APP_MOUNT_URI
 ARG APPS_MARKETPLACE_API_URL
 ARG EXTENSIONS_API_URL
@@ -29,7 +29,7 @@ ARG STATIC_URL
 ARG SKIP_SOURCEMAPS
 ARG LOCALE_CODE
 
-ENV VITE_API_URL=${VITE_API_URL:-http://localhost:8000/graphql/}
+ENV API_URL=${API_URL:-http://localhost:8000/graphql/}
 ENV APP_MOUNT_URI=${APP_MOUNT_URI:-/dashboard/}
 ENV APPS_MARKETPLACE_API_URL=${APPS_MARKETPLACE_API_URL:-https://apps.saleor.io/api/v2/saleor-apps}
 ENV EXTENSIONS_API_URL=${EXTENSIONS_API_URL:-https://apps.saleor.io/api/v1/extensions}
@@ -40,7 +40,7 @@ ENV LOCALE_CODE=${LOCALE_CODE:-EN}
 
 RUN pnpm run generate:main
 ARG CACHE_BUSTER=1
-RUN pnpm exec cross-env NODE_OPTIONS=--max-old-space-size=8192 VITE_API_URL=$VITE_API_URL vite build
+RUN pnpm exec cross-env NODE_OPTIONS=--max-old-space-size=8192 API_URL=$API_URL vite build
 
 FROM nginx:stable-alpine as runner
 WORKDIR /app
